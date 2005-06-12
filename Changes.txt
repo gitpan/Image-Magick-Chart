@@ -1,0 +1,4 @@
+Revision history for Perl extension Image::Magick::Chart.
+
+1.00  Thu May 27 11:25:29 2005
+	- original version
