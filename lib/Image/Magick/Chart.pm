@@ -56,7 +56,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 
 );
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 # -----------------------------------------------
 
@@ -400,35 +400,35 @@ C<Image::Magick::Chart> - Use Image::Magick to create charts.
 
 	Image::Magick::Chart::HorizontalBars -> new
 	(
-		antialias				=> 0,	# 0 => No antialias; 1 => Antialias.
-		bar_width				=> 8,	# Pixels.
-		bg_color				=> 'white',
-		colorspace				=> 'RGB',
-		depth					=> 8,	# Bits per channel.
-		fg_color				=> 'blue',
-		font					=> 'Courier',
-		frame_color				=> 'black',
-		frame_option			=> 1,	# 0 => None; 1 => Draw it.
-		height					=> 0,
-		image					=> '',
-		output_file_name		=> 'image-1.png',
-		padding					=> [30, 30, 30, 30],	# [12 noon, 3, 6, 9].
-		pointsize				=> 14,	# Points.
-		tick_length				=> 4,	# Pixels.
-		title					=> 'Percent (%)',
-		width					=> 0,
-		x_axis_data				=> [0, 20, 40, 60, 80, 100],
-		x_axis_labels			=> [0, 20, 40, 60, 80, 100],
-		x_axis_labels_option	=> 1,	# 0 => None; 1 => Draw them.
-		x_axis_ticks_option		=> 2,	# 0 => None; 1 => Below x-axis; 2 => Across frame.
-		x_data					=> [15, 5, 70, 25, 45, 20, 65],
-		x_data_option			=> 1,
-		x_pixels_per_unit		=> 3,	# Horizontal width of each data unit.
-		y_axis_data				=> [1 .. 7, 8], # 7 data points, plus 1 to make image pretty.
-		y_axis_labels			=> [(map{"($_)"} reverse (1 .. 7) ), ''],
-		y_axis_labels_option	=> 1,	# 0 => None; 1 => Draw them.
-		y_axis_ticks_option		=> 1,	# 0 => None; 1 => Left of y-axis; 2 => Across frame.
-		y_pixels_per_unit		=> 20,
+		antialias            => 0, # 0 => No antialias; 1 => Antialias.
+		bar_width            => 8, # Pixels.
+		bg_color             => 'white',
+		colorspace           => 'RGB',
+		depth                => 8, # Bits per channel.
+		fg_color             => 'blue',
+		font                 => 'Courier',
+		frame_color          => 'black',
+		frame_option         => 1, # 0 => None; 1 => Draw it.
+		height               => 0,
+		image                => '',
+		output_file_name     => 'image-1.png',
+		padding              => [30, 30, 30, 30], # [12 noon, 3, 6, 9].
+		pointsize            => 14, # Points.
+		tick_length          => 4,  # Pixels.
+		title                => 'Percent (%)',
+		width                => 0,
+		x_axis_data          => [0, 20, 40, 60, 80, 100],
+		x_axis_labels        => [0, 20, 40, 60, 80, 100],
+		x_axis_labels_option => 1, # 0 => None; 1 => Draw them.
+		x_axis_ticks_option  => 2, # 0 => None; 1 => Below x-axis; 2 => Across frame.
+		x_data               => [15, 5, 70, 25, 45, 20, 65],
+		x_data_option        => 1,
+		x_pixels_per_unit    => 3, # Horizontal width of each data unit.
+		y_axis_data          => [1 .. 7, 8], # 7 data points, plus 1 to make image pretty.
+		y_axis_labels        => [(map{"($_)"} reverse (1 .. 7) ), ''],
+		y_axis_labels_option => 1, # 0 => None; 1 => Draw them.
+		y_axis_ticks_option  => 1, # 0 => None; 1 => Left of y-axis; 2 => Across frame.
+		y_pixels_per_unit    => 20,
 	) -> draw();
 
 This code is part of examples/test-chart.pl.
@@ -471,9 +471,19 @@ help on unpacking and installing each type of distro.
 
 =head1 Constructor and initialization
 
-new(...) returns a C<Image::Magick::Chart> object.
+new(...) returns an C<Image::Magick::Chart> object.
 
 This is the class's contructor.
+
+Usage: Image::Magick::Chart -> new().
+
+Note: Actually, you don't normally do this.
+
+Instead, you call: Image::Magick::Chart::HorizontalBars -> new(...) -> draw().
+
+This method takes a set of parameters. Only the output_file_name parameter is mandatory.
+
+For each parameter you wish to use, call new as new(param_1 => value_1, ...).
 
 Parameters:
 
@@ -725,9 +735,11 @@ Values:
 
 =over 4
 
-=item 0
+=item '0'
 
 Do not draw x-axis tick marks.
+
+The quotes are just to stop the zero disappearing when POD is converted to HTML.
 
 =item 1
 
@@ -771,7 +783,7 @@ This is the scaling factor in the x-axis direction.
 The default value is 3, meaning each unit of data in the x-axis direction will
 occupy 3 pixels horizontally.
 
-Use this in conjunction with the x_axis_data parameter.
+This value is used in conjunction with the x_axis_data and x_data parameters.
 
 Eg: In the above code, the x-axis data ranges up to 100 (sic), and the x-axis scaling factor
 is 3 pixels/unit, so the part of the image occupied by the data will be 3 * 100 + 1 pixels wide.
@@ -794,7 +806,7 @@ array ref given by the x_data parameter.
 
 Or, if you want the image to look pretty, put one more value into the y_axis_data array ref,
 as seen in the code above. Do the same with the y_axis_labels parameter - just make the final
-value in @$y_axis_labels '' (the empty string).
+value in @$y_axis_labels a '' (the empty string).
 
 The default value is [], meaning neither labels nor tick marks will be drawn along the
 y-axis.
@@ -824,9 +836,11 @@ Values:
 
 =over 4
 
-=item 0
+=item '0'
 
 Do not draw y-axis tick marks.
+
+The quotes are just to stop the zero disappearing when POD is converted to HTML.
 
 =item 1
 
@@ -852,7 +866,7 @@ This is the scaling factor in the y-axis direction.
 The default value is 20, meaning each unit of data in the y-axis direction will
 occupy 20 pixels vertically.
 
-Use this in conjunction with the y_axis_data parameter.
+This value is used in conjunction with the y_axis_data parameter.
 
 Eg: In the above code, the y-axis data ranges up to 8, and the y-axis scaling factor
 is 20 pixels/unit, so the part of the image occupied by the data will be 20 * 8 + 1 pixels high.
@@ -913,7 +927,7 @@ These is no need to call this method yourself.
 
 Returns a object of type C<Image::Magick::Chart>.
 
-See above, in the section called 'Constructor and initialization'.
+See above, in the section called 'Constructor and initialization' for details.
 
 =head1 Method: write()
 
