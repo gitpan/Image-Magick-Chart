@@ -56,7 +56,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 
 );
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 # -----------------------------------------------
 
@@ -95,8 +95,9 @@ our $VERSION = '1.01';
 		_x_pixels_per_unit		=> 3,	# Horizontal width of each data unit.
 		_y_axis_data			=> [],
 		_y_axis_labels			=> [],
-		_y_axis_labels_option	=> 1,	# 0 => None; 1 => Draw them.
-		_y_axis_ticks_option	=> 1,	# 0 => None; 1 => Left of y-axis; 2 => Across frame.
+		_y_axis_labels_option	=> 1,		# 0 => None; 1 => Draw them.
+		_y_axis_labels_x		=> undef,	# undef => Ignore; Other => Use.
+		_y_axis_ticks_option	=> 1,		# 0 => None; 1 => Left of y-axis; 2 => Across frame.
 		_y_pixels_per_unit		=> 20,
 	);
 
@@ -273,11 +274,12 @@ sub draw_y_axis_labels
 	my($self)	= @_;
 	my($y_zero)	= $$self{'_height'} - $$self{'_padding'}[2] - 1;
 
-	my($y, @metric);
+	my($y, $offset, @metric);
 
 	for $y (@{$$self{'_y_axis_labels'} })
 	{
 		@metric = $$self{'_image'} -> QueryFontMetrics(text => $y);
+		$offset	= defined($$self{'_y_axis_labels_x'}) ? $$self{'_y_axis_labels_x'} : $$self{'_padding'}[3] - $$self{'_pointsize'} - $metric[4];
 		$y_zero -= $$self{'_y_pixels_per_unit'};
 
 		$$self{'_image'} -> Annotate
@@ -287,7 +289,7 @@ sub draw_y_axis_labels
 			stroke		=> $$self{'_frame_color'},
 			strokewidth	=> 1,
 			pointsize	=> $$self{'_pointsize'},
-			x			=> $$self{'_padding'}[3] - $$self{'_pointsize'} - $metric[4],
+			x			=> $offset,
 			y			=> $y_zero + int($metric[5] / 2) - 2,
 		) && Carp::croak("Can't draw Y-axis labels");
 	}
@@ -827,6 +829,20 @@ This parameter is optional.
 The value, 0 or 1, determines whether (1) or not (0) the y-axis labels will be drawn.
 
 The default value is 1.
+
+This parameter is optional.
+
+=item y_axis_labels_x
+
+The value, if not undef, determines the x-axis value (abscissa) at which y-axis labels are written.
+
+The special value undef means this module calculates an abscissa at which to start writing
+y-axis labels.
+
+This calculation will only produce a pretty-looking column of y-axis labels when all labels are
+the same width in pixels. See C<sub draw_y_axis_labels()> for the calculation.
+
+The default value is undef.
 
 This parameter is optional.
 

@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: Image-Magick-Chart
-version: 1.01
+version: 1.02
 author:
   - Ron Savage <ron@savage.net.au>
 abstract: Use Image::Magick to create charts.
@@ -14,8 +14,8 @@ build_requires:
 provides:
   Image::Magick::Chart:
     file: lib/Image/Magick/Chart.pm
-    version: 1.01
+    version: 1.02
   Image::Magick::Chart::HorizontalBars:
     file: lib/Image/Magick/Chart/HorizontalBars.pm
-    version: 1.01
-generated_by: Module::Build version 0.2607
+    version: 1.02
+generated_by: Module::Build version 0.2611
