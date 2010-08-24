@@ -1,5 +1,16 @@
 Revision history for Perl extension Image::Magick::Chart.
 
+1.06  Sun Feb 21 12:55:21 2010
+	- Remove text 'All rights reserved' (for Debian licensing).
+	- Remove POD heads 'Required Modules' and 'Changes'.
+
+1.05  Wed Feb 10 14:02:08 2010
+	- MANIFEST.SKIP updated to exclude MYMETA.yml. Add MYMETA.yml.
+
+1.04  Fri Nov 13 13:20:00 2009
+	- Run dos2unix
+	- Rename Changes.txt to CHANGES
+
 1.03  Fri Dec 12 18:15:00 2008
 	  - Image::Magick's Draw() method has an option, 'fill'. When I first wrote this module,
 	  	fill's value defaulted to 'none', and now it defaults to something else. The effect is

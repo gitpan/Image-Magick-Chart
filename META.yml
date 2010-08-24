@@ -1,26 +1,28 @@
 ---
-name: Image-Magick-Chart
-version: 1.03
+abstract: 'Use Image::Magick to create charts.'
 author:
   - 'Ron Savage <ron@savage.net.au>'
-abstract: Use Image::Magick to create charts.
-license: artistic
-resources:
-  license: http://opensource.org/licenses/artistic-license.php
-requires:
-  Carp: 0
-  Image::Magick: 6
 build_requires:
   Test::More: 0
   Test::Pod: 0
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3607'
+license: artistic
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Image-Magick-Chart
 provides:
   Image::Magick::Chart:
     file: lib/Image/Magick/Chart.pm
-    version: 1.03
+    version: 1.06
   Image::Magick::Chart::HorizontalBars:
     file: lib/Image/Magick/Chart/HorizontalBars.pm
-    version: 1.03
-generated_by: Module::Build version 0.280801
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+    version: 1.06
+requires:
+  Carp: 0
+  Image::Magick: 6
+resources:
+  license: http://www.perlfoundation.org/artistic_license_1_0
+version: 1.06
